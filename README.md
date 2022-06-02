@@ -1,13 +1,13 @@
-<!--# ![Image text](TechEvents/src/main/resources/static/img/logotipo-header.jpg)-->
+# ![Image text](src/main/resources/static/img/logo.png)
 
-Website dedicated to offer web development courses
+Web application to find the perfect vacation with your pet
 
 
 ## Starting 🚀
 
 - Clone or download Git Repository.
-- Paste or unzip https://github.com/devfdom
-- Open the intelliJ idea.
+- Paste or unzip https://github.com/devfdom/pet-vacation
+- Open the intelliJ idea & VS or https://pet-vacation.vercel.app/
 - Enjoy.
 
 See **Installation** to learn how to deploy the project.
@@ -16,13 +16,14 @@ See **Installation** to learn how to deploy the project.
 ### Requeriments 📋
 
 - intelliJ idea.
+- VS Code.
 - MySQL.
 - Browser.
 
 ### Installation 🔧
 
-- Open intelliJ idea.
-- Git clone https://github.com/devfdom
+- Open intelliJ idea & VS Code.
+- Git clone https://github.com/devfdom/pet-vacation
 - Open-start your mysql GUI.
 - Enjoy.
 
@@ -44,6 +45,7 @@ Verifies the proper functioning of the web with the technologies applied to it.
 * [Spring Boot](https://spring.io/projects/spring-boot) - Technology
 * [intelliJ IDEA](https://www.jetbrains.com/es-es/idea/) - Development environment
 * [Git & GitHub](https://github.com) - Keeping track of changes in computer files including coordinating team work.
+* [Vercel](https://vercel.com/) - Build Web Application
 * [Canva](https://www.canva.com/) - Presentations
 * [XAMPP](https://www.apachefriends.org/es/index.html) - BBDD Gestor Windows
 * [TablePlus for MAC](https://tableplus.com/) - BBDD Gestor macOS
