@@ -1,4 +1,4 @@
-# ![Image text](src/main/resources/static/img/logo.png)
+# <img src="src/main/resources/static/img/logo.png" width="348">
 
 Pet Vacation is a web application developed to make life easier for pet owners when finding a place to go on vacation and take their pets with them.
 It is an application that allows users to rent a property or offer their property for rent.
