@@ -38,13 +38,13 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
         user.getRoles().forEach(role -> {
             authorities.add(new SimpleGrantedAuthority(role.getName()));
         });
-        return new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassworld(), authorities);
+        return new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(), authorities);
     }
 
     @Override
     public User saveUser(User user) {
         log.info("Saving new user {} to the database", user.getName());
-        user.setPassworld(passwordEncoder.encode(user.getPassworld()));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
