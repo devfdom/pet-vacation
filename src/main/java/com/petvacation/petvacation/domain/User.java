@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Set;
 
 import static javax.persistence.GenerationType.AUTO;
 
@@ -20,4 +21,7 @@ public class User {
     private String password;
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection <Role> roles = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    Set<Booking> booking;
 }

@@ -1,5 +1,6 @@
 package com.petvacation.petvacation.service;
 
+import com.petvacation.petvacation.domain.Properties;
 import com.petvacation.petvacation.domain.Role;
 import com.petvacation.petvacation.domain.User;
 import com.petvacation.petvacation.repository.RoleRepository;
@@ -72,6 +73,28 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
     public List<User> getUsers() {
         log.info("Fetching all users");
         return userRepository.findAll();
+    }
+
+    @Override
+    public List<User> findAll() {
+        log.info("Fetching all users");
+        return userRepository.findAll();
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        log.info("Finding users by username");
+        return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public User findById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public void delete(Long id) {
+        userRepository.deleteById(id);
     }
 
 

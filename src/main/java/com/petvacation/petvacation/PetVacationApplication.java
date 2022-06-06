@@ -34,12 +34,12 @@ public class PetVacationApplication {
           iUserService.saveRole(new Role(null, "ROLE_SUPER_ADMIN"));
           iUserService.saveRole(new Role(null, "ROLE_CARETAKER"));
 
-          iUserService.saveUser((new User(null, "Glaucia Mesquita", "glauciamesquitagmm@hotmail.com", "Glauciagmm","123456",  new ArrayList<>())));
+          /*iUserService.saveUser((new User(null, "Glaucia Mesquita", "glauciamesquitagmm@hotmail.com", "Glauciagmm","123456",  new ArrayList<>())));
           iUserService.saveUser((new User(null, "Lupe Flores", "lupe@hotmail.com", "Lupe","78912", new ArrayList<>())));
           iUserService.saveUser((new User(null, "Patricia Muino", "patri@hotmail.com", "Patri","34567", new ArrayList<>())));
           iUserService.saveUser((new User(null, "Eli Ildeva", "eli@hotmail.com", "Eli","56894", new ArrayList<>())));
           iUserService.saveUser((new User(null, "Francisco Dominguez", "fran@hotmail.com","Fran","99999",  new ArrayList<>())));
-
+*/
           iUserService.addRoleToUser("Glauciagmm","ROLE_ADMIN");
           iUserService.addRoleToUser("Glauciagmm","ROLE_USER");
           iUserService.addRoleToUser("Glauciagmm","ROLE_OWNER");
