@@ -5,16 +5,14 @@ import com.petvacation.petvacation.domain.User;
 import com.petvacation.petvacation.repository.PropertiesRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 import java.util.List;
 
-@Service @RequiredArgsConstructor
-public class PropertiesServiceImpl {
-    @Autowired
+@Service @RequiredArgsConstructor @Transactional @Slf4j
+public class PropertiesServiceImpl implements IPropertiesService {
+
     private PropertiesRepository propertiesRepository;
 
     public PropertiesServiceImpl(PropertiesRepository propertiesRepository) {

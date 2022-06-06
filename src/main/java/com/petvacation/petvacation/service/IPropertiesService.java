@@ -1,10 +1,11 @@
 package com.petvacation.petvacation.service;
 
+import com.petvacation.petvacation.domain.Properties;
 import com.petvacation.petvacation.domain.User;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Properties;
+
 
 public interface IPropertiesService {
     public List<Properties> findAll();
