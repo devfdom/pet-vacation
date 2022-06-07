@@ -24,10 +24,13 @@ public class Properties {
     private String photo;
     private String available;
     private boolean approved;
-    private int user_id;
+    @ManyToOne
+    @JoinColumn (name="owner_id")
+    private User user;
     private boolean book;
     private String renter;
     private int rating;
+    private String description;
 
     @OneToMany(mappedBy = "properties")
     Set<Booking> booking;
