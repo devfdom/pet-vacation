@@ -19,4 +19,6 @@ public interface IUserService {
     User findById(Long id);
 
     void delete(Long id);
+
+    void addUserProperties(Long userId, Long propertiesId);
 }

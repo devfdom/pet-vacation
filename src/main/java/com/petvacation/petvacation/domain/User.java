@@ -24,4 +24,9 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     Set<Booking> booking;
+
+    @OneToMany(mappedBy = "user")
+    Set<Properties> properties;
+
+
 }

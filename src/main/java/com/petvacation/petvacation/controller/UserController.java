@@ -5,17 +5,18 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.petvacation.petvacation.domain.Properties;
 import com.petvacation.petvacation.domain.Role;
 import com.petvacation.petvacation.domain.User;
-import com.petvacation.petvacation.service.IPropertiesService;
+import com.petvacation.petvacation.repository.PropertiesRepository;
+import com.petvacation.petvacation.repository.UserRepository;
 import com.petvacation.petvacation.service.IUserService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.ui.Model;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URI;
-import java.util.*;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
@@ -37,32 +42,14 @@ import static org.springframework.http.HttpStatus.FORBIDDEN;
 @RequiredArgsConstructor
 public class UserController {
     private final IUserService userService;
-    private final IPropertiesService iPropertiesService;
+    private final PropertiesRepository propertiesRepository;
+    private final UserRepository userRepository;
 
-    @GetMapping("/users")
+    @GetMapping("/user")
     public ResponseEntity<List<User>>getUsers(){
         return ResponseEntity.ok().body(userService.getUsers());
     }
 
-    @GetMapping("/")
-    public String listUsers(Model model){
-        List<User> listOfUsers = userService.findAll();
-        model.addAttribute("users", "List of Users");
-        model.addAttribute("users", listOfUsers);
-        return "/views/admin/list";
-    }
-    @GetMapping("/create")
-    public String createANewUser (Model model) {
-
-        User user = new User();
-        /*List<Users> listUsers= usersService.listUsers();*/
-
-        model.addAttribute("title", "Form: New User");
-        model.addAttribute("user", user);
-        /* model.addAttribute("users", listUsers);*/
-
-        return "/views/user/frmUser";
-    }
 
     @PostMapping("/user/save")
     public ResponseEntity<User>saveUser(@RequestBody User user){
@@ -118,104 +105,83 @@ public class UserController {
             throw new RuntimeException("Refresh token is missing");
         }
     }
+
+    @GetMapping("/user/admin")
+    public String listUsers(Model model){
+        List<User> listOfUsers = userRepository.findAll();
+        model.addAttribute("users", "List of Users");
+        model.addAttribute("users", listOfUsers);
+        return "/user/admin/list";
+    }
+
+    @GetMapping("/user/register")
+    public String createNewAccount (Model model) {
+
+        User user = new User();
+        model.addAttribute("title", "Form: New User");
+        model.addAttribute("user", user);
+        return "/api/user/frmRegister";
+    }
+
+    //creo que está duplicada pero una llama al service y la otra al repositorio
+    @PostMapping("/user/save/")
+    public User addUser(@RequestBody User user) {
+        return userRepository.save(user);
+    }
+
+    @GetMapping("/user/{id}")
+    public User findUserById(@PathVariable Long id) {
+        return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+    }
+
     @GetMapping("/user/edit/{id}")
     public String editUser (@PathVariable("id") Long idUsers, Model model,
                             RedirectAttributes attribute){
-
         User user = null;
 
         if(idUsers > 0) {
-            user = userService.findById(idUsers);
+            user =  userRepository.findById(idUsers).orElseThrow(UserNotFoundException::new);
 
             if(user == null){
                 System.out.println("Error: The indicated Id doesn't exist!");
                 attribute.addFlashAttribute("error","Attention: The indicated Id doesn't exist!");
-                return "redirect:/views/user/index";
+                return "redirect:/api/user/index";
             }
         }else {
             System.out.println("Error:Errors with the Id!");
             attribute.addFlashAttribute("error","Attention: Errors with the Id");
-            return "redirect:/views/user/index";
+            return "redirect:/api/user/index";
         }
-
-
         model.addAttribute("title", "Form: Edit User");
-        model.addAttribute("users", user);
+        model.addAttribute("user", user);
 
-
-        return "/views/user/frmUsers";
+        return "/api/user/frmRegister";
     }
-    @GetMapping("/user/delete/{id}")
-    public String delete (@PathVariable("id") Long idUser, RedirectAttributes attribute){
-        User user = null;
 
-        if(idUser > 0) {
-            user = userService.findById(idUser);
-
-            if(user == null){
-                System.out.println("Error:The indicated Id doesn't exist!");
-                attribute.addFlashAttribute("error","Attention: The indicated Id doesn't exist!");
-                return "redirect:/views/user/index";
-            }
-        }else {
-            System.out.println("Error: Error with the Id");
-            attribute.addFlashAttribute("error","Attention: error with the Id!");
-            return "redirect:/views/user/index";
-        }
-
-        userService.delete(idUser);
+    @DeleteMapping("/api/user/delete/{id}")
+    public User delete (@PathVariable("id") Long id){
+       User user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+        userRepository.delete(user);
         System.out.println("Successfully deleted!");
-        attribute.addFlashAttribute("warning","Successfully deleted!");
-
-        return "redirect:/views/user/index";
+        return user;
     }
 
-    /*<!--@GetMapping("/userAddBooking/{id}")
-    public String userAddBooking(Authentication auth, @PathVariable("id") Long idProperties){
-        Properties  properties= iPropertiesService.findById(idProperties);
-
-        String username = auth.getName();
-        User user = userService.findByUsername(username);
-
-        if (user.getProperties().contains(properties)){
-            System.out.println("Duplicated Porperties!");
-        }
-        else{
-            .setSigned(.getSigned()+1);
-            propertiesRepository.save();
-            System.out.println("Signed Up for the " + .getSigned());
-            user.getEvents().add();
-            userRepository.save(user);
-        }
-
-        return "redirect:/views/users/index";
+    @PostMapping("/user/properties")
+    public ResponseEntity<?> addUserProperties(@RequestBody OwnerPropertiesForm form){
+        userService.addUserProperties(form.getUserId(),form.getPropertiesId());
+        return ResponseEntity.ok().build();
     }
-    @GetMapping("/userRemoveBooking/{id}")
-    public String userRemoveBooking(Authentication auth, @PathVariable ("id") Long idEvent){
-        Properties properties = iPropertiesService.findById(idEvent);
-
-        String username = auth.getName();
-        User user = userService.findByUsername(username);
-
-        if (user.getEvents().contains(properties)){
-            properties.setSigned(properties.getSigned()-1);
-            eventsRepository.save(properties);
-            System.out.println("Event Removed");
-            user.getEvents().remove(properties);
-            usersRepository.save(user);
-        }
-        else{
-            System.out.println("Event not find");
-        }
-
-        return "redirect:/views/users/index";
-    }-->*/
-
 }
 
 @Data
 class RoleToUserForm{
     private String username;
     private String roleName;
+}
+
+@Data
+class OwnerPropertiesForm{
+    private Long userId;
+    private Long propertiesId;
 }
 

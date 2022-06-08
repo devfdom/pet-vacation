@@ -97,5 +97,10 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
         userRepository.deleteById(id);
     }
 
+    @Override
+    public void addUserProperties(Long userId, Long propertiesId) {
+
+    }
+
 
 }

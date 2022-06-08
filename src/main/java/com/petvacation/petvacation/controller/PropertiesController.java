@@ -26,25 +26,22 @@ public class PropertiesController {
     @GetMapping("/properties")
     public List<Properties> findAllProperties() {
         return propertiesRepository.findAll(); }
-
+    //ok
     @GetMapping("/properties/{id}")
-    public Properties findPropertiesById(@PathVariable Long id) throws ChangeSetPersister.NotFoundException {
+    public Properties findPropertiesById(@PathVariable("id") Long id) throws ChangeSetPersister.NotFoundException {
         return propertiesRepository.findById(id).orElseThrow(ChangeSetPersister.NotFoundException::new);
     }
-
-    @GetMapping("/properties/create")
-    public String createNewProperties(Model model){
-
-        Properties properties = new Properties();
-
+    //ok
+    @PostMapping("/properties/create")
+    public Properties createNewProperties(@RequestBody @Valid Properties properties){
+        /*Properties properties = new Properties();
         model.addAttribute("title", "Form: New Properties");
-        model.addAttribute("properties", properties);
-
-        return "/views/admin/frmCreate";
+        model.addAttribute("properties", properties);*/
+        return this.propertiesRepository.save(properties);
     }
 
-    @PostMapping("/properties/save")
-    public String saveProperties(@Valid @ModelAttribute Properties properties, BindingResult result,
+    /*@PutMapping("/properties/edit")
+    public String editProperties(@Valid @ModelAttribute Properties properties, BindingResult result,
                                  Model model, RedirectAttributes attribute){
 
         if (result.hasErrors()){
@@ -59,10 +56,10 @@ public class PropertiesController {
         System.out.println("Successfully saved!");
         attribute.addFlashAttribute("success","Successfully saved");
         return "redirect:/views/admin/";
-    }
-
+    }*/
+    //ok
     @PutMapping("/properties")
-    public Properties updatePropertiesById(@RequestBody Properties properties) {
+    public Properties updatePropertiesById(@PathVariable("id") Long idProperties, @RequestBody @Valid Properties properties) {
         return propertiesRepository.save(properties);
     }
 
@@ -74,17 +71,16 @@ public class PropertiesController {
 
     }
 
-    /**Encuentra el piso por su Id, lo marca como alquilado de acuerdo con el id {id}, además,
-     *  registra el nombre de quien lo ha alquilado*/
+    /**Find a property by Id and marks it as rented, also register the name of who rented it*/
     @PutMapping("/properties/{id}/book")
-    public Properties updatePropertiesRented(@PathVariable Long id, @RequestParam (value = "renter") String renter) throws ChangeSetPersister.NotFoundException {
-        Properties properties = propertiesRepository.findById(id).orElseThrow(ChangeSetPersister.NotFoundException::new);
+    public Properties updatePropertiesRented(@PathVariable("id") Long idUser, @RequestParam (value = "idUser") String renter) throws ChangeSetPersister.NotFoundException {
+        Properties properties = propertiesRepository.findById(idUser).orElseThrow(ChangeSetPersister.NotFoundException::new);
         properties.setRenter(renter);
         properties.setBook(true);
         return propertiesRepository.save(properties);
     }
 
-    /** Marca un piso como disponible cuando borrando el nombre de quien la ha alquilado */
+    /** It marks a property as avaiable when remove the name of renter*/
     @PutMapping("/properties/{id}/return")
     public Properties clearPropertiesRented(@PathVariable Long id) throws ChangeSetPersister.NotFoundException {
         Properties properties = propertiesRepository.findById(id).orElseThrow(ChangeSetPersister.NotFoundException::new);
@@ -93,7 +89,7 @@ public class PropertiesController {
         return propertiesRepository.save(properties);
     }
 
-    /**Atribuye un Score a las pisos*/
+    /**Attributes a score to properties*/
     @PutMapping("/properties/{id}/rating")
     public Properties upDateRatingPropertiesById(@PathVariable Long id, @RequestBody Properties properties) throws ChangeSetPersister.NotFoundException {
         Properties propertiesToEdit = propertiesRepository.findById(id).orElseThrow(ChangeSetPersister.NotFoundException::new);
@@ -105,5 +101,6 @@ public class PropertiesController {
         }
         return propertiesRepository.save(propertiesToEdit);
     }
+
 
 }
