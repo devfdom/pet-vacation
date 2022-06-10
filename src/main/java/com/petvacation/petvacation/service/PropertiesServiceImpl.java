@@ -16,16 +16,16 @@ public class PropertiesServiceImpl implements IPropertiesService {
     private PropertiesRepository propertiesRepository;
 
     public PropertiesServiceImpl(PropertiesRepository propertiesRepository) {
+        this.propertiesRepository = propertiesRepository;
     }
 
    @Override
-    public List<Properties> findAll(){
+    public List<Properties> findAllProperties(){
         return (List<Properties>) propertiesRepository.findAll(Sort.by(Sort.Direction.DESC, "available"));
     }
 
     @Override
     public List<Properties> listAvailable(){
-
         return (List<Properties>) propertiesRepository.findByAvailableIsTrue();
     }
 
@@ -35,7 +35,7 @@ public class PropertiesServiceImpl implements IPropertiesService {
     }
 
     @Override
-    public Properties findById(Long id){
+    public Properties findPropertyById(Long id){
         return propertiesRepository.findById(id).orElse(null);
     }
 

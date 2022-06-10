@@ -11,14 +11,9 @@ public interface IUserService {
     void addRoleToUser(String username, String roleName);
     User getUser(String username);
     List<User> getUsers();
-
     List<User> findAll();
-
     User findByUsername(String username);
-
     User findById(Long id);
-
     void delete(Long id);
-
     void addUserProperties(Long userId, Long propertiesId);
 }

@@ -11,7 +11,7 @@ import static javax.persistence.GenerationType.AUTO;
 @Entity
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+
 public class Properties {
     @Id
     @GeneratedValue(strategy = AUTO)
@@ -34,4 +34,22 @@ public class Properties {
 
     @OneToMany(mappedBy = "properties")
     Set<Booking> booking;
+
+    public Properties(Long id, String city, int bedrooms, int capacity, boolean pool, boolean garden, String photo, String available, boolean approved, boolean book, String renter, int rating, String description, User user, Set<Booking> booking) {
+        this.id = id;
+        this.city = city;
+        this.bedrooms = bedrooms;
+        this.capacity = capacity;
+        this.pool = pool;
+        this.garden = garden;
+        this.photo = photo;
+        this.available = available;
+        this.approved = approved;
+        this.book = book;
+        this.renter = renter;
+        this.rating = rating;
+        this.description = description;
+        this.user = user;
+        this.booking = booking;
+    }
 }

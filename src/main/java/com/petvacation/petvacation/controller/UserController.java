@@ -38,7 +38,7 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/petvacation")
 @RequiredArgsConstructor
 public class UserController {
     private final IUserService userService;
@@ -53,13 +53,13 @@ public class UserController {
 
     @PostMapping("/user/save")
     public ResponseEntity<User>saveUser(@RequestBody User user){
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/save").toUriString());
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/petvacation/user/save").toUriString());
         return ResponseEntity.created(uri).body(userService.saveUser(user));
     }
 
     @PostMapping("/role/save")
     public ResponseEntity<Role>saveRole(@RequestBody Role role){
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/role/save").toUriString());
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/petvacation/role/save").toUriString());
         return ResponseEntity.created(uri).body(userService.saveRole(role));
     }
 
@@ -106,32 +106,17 @@ public class UserController {
         }
     }
 
-    @GetMapping("/user/admin")
-    public String listUsers(Model model){
-        List<User> listOfUsers = userRepository.findAll();
-        model.addAttribute("users", "List of Users");
-        model.addAttribute("users", listOfUsers);
-        return "/user/admin/list";
-    }
-
-    @GetMapping("/user/register")
-    public String createNewAccount (Model model) {
-
-        User user = new User();
-        model.addAttribute("title", "Form: New User");
-        model.addAttribute("user", user);
-        return "/api/user/frmRegister";
-    }
-
-    //creo que está duplicada pero una llama al service y la otra al repositorio
-    @PostMapping("/user/save/")
-    public User addUser(@RequestBody User user) {
-        return userRepository.save(user);
-    }
-
     @GetMapping("/user/{id}")
     public User findUserById(@PathVariable Long id) {
         return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+    }
+
+    @DeleteMapping("/user/delete/{id}")
+    public User delete (@PathVariable("id") Long id){
+        User user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+        userRepository.delete(user);
+        System.out.println("Successfully deleted!");
+        return null;
     }
 
     @GetMapping("/user/edit/{id}")
@@ -155,15 +140,7 @@ public class UserController {
         model.addAttribute("title", "Form: Edit User");
         model.addAttribute("user", user);
 
-        return "/api/user/frmRegister";
-    }
-
-    @DeleteMapping("/api/user/delete/{id}")
-    public User delete (@PathVariable("id") Long id){
-       User user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
-        userRepository.delete(user);
-        System.out.println("Successfully deleted!");
-        return user;
+        return "/petvacation/user/frmEdit";
     }
 
     @PostMapping("/user/properties")
@@ -185,3 +162,29 @@ class OwnerPropertiesForm{
     private Long propertiesId;
 }
 
+
+
+
+    /*@GetMapping("/user/admin")
+    public String listUsers(Model model){
+        List<User> listOfUsers = userRepository.findAll();
+        model.addAttribute("users", "List of Users");
+        model.addAttribute("users", listOfUsers);
+        return "/user/admin/list";
+    }*/
+
+    /*@GetMapping("/user/register")
+    public String createNewAccount (Model model) {
+
+        User user = new User();
+        model.addAttribute("title", "Form: New User");
+        model.addAttribute("user", user);
+        return "/api/user/frmRegister";
+    }*/
+
+    /*//creo que está duplicada pero una llama al service y la otra al repositorio
+    @PostMapping("/user/save/")
+    public User addUser(@RequestBody User user) {
+        return userRepository.save(user);
+    }
+*/

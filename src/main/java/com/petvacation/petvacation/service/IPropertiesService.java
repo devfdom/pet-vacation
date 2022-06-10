@@ -8,10 +8,10 @@ import java.util.List;
 
 
 public interface IPropertiesService {
-    public List<Properties> findAll();
+    public List<Properties> findAllProperties();
     public List<Properties> listAvailable();
     public void save(Properties properties);
-    public Properties findById(Long id);
+    public Properties findPropertyById(Long id);
     public void delete (Long id);
     List<User> listUser();
 }
