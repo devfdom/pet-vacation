@@ -5,6 +5,7 @@ import com.petvacation.petvacation.domain.User;
 import com.petvacation.petvacation.repository.PropertiesRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
@@ -13,15 +14,16 @@ import java.util.List;
 @Service @RequiredArgsConstructor @Transactional @Slf4j
 public class PropertiesServiceImpl implements IPropertiesService {
 
-    private PropertiesRepository propertiesRepository;
 
-    public PropertiesServiceImpl(PropertiesRepository propertiesRepository) {
+    private final PropertiesRepository propertiesRepository;
+
+    /*public PropertiesServiceImpl(PropertiesRepository propertiesRepository) {
         this.propertiesRepository = propertiesRepository;
-    }
+    }*/
 
    @Override
-    public List<Properties> findAllProperties(){
-        return (List<Properties>) propertiesRepository.findAll(Sort.by(Sort.Direction.DESC, "available"));
+    public List<Properties> findAll(){
+        return propertiesRepository.findAll();
     }
 
     @Override
@@ -30,8 +32,9 @@ public class PropertiesServiceImpl implements IPropertiesService {
     }
 
     @Override
-    public void save (Properties properties){
-        propertiesRepository.save(properties);
+    public Properties save (Properties properties){
+        return propertiesRepository.save(properties);
+
     }
 
     @Override

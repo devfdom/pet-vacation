@@ -75,17 +75,17 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
         return userRepository.findAll();
     }
 
-    @Override
+    /*@Override
     public List<User> findAll() {
         log.info("Fetching all users");
         return userRepository.findAll();
-    }
+    }*/
 
-    @Override
+    /*@Override
     public User findByUsername(String username) {
         log.info("Finding users by username");
         return userRepository.findByUsername(username);
-    }
+    }*/
 
     @Override
     public User findById(Long id) {
@@ -93,14 +93,15 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void deleteUserById(Long id) {
         userRepository.deleteById(id);
     }
 
-    @Override
+    /*@Override
     public void addUserProperties(Long userId, Long propertiesId) {
 
-    }
+    }*/
+
 
 
 }

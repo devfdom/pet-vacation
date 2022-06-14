@@ -9,6 +9,8 @@ import java.util.List;
 @Repository
 public interface PropertiesRepository extends JpaRepository<Properties, Long> {
         public List<Properties> findByAvailableIsTrue();
+
+    
 //        public List<Properties> findByCity();
 //        void deletePropertiesById(Long id);
 }

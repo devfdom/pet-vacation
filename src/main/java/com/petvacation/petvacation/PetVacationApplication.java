@@ -26,7 +26,7 @@ public class PetVacationApplication {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
+   /* @Bean
     CommandLineRunner run(IUserService iUserService) {
         return args -> {
             iUserService.saveRole(new Role(null, "ROLE_USER"));
@@ -51,5 +51,5 @@ public class PetVacationApplication {
             iUserService.addRoleToUser("Fran","ROLE_CARETAKER");
             iUserService.addRoleToUser("Patri","ROLE_OWNER");
         };
-    };
+    }*/
 }

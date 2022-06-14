@@ -1,48 +1,60 @@
 package com.petvacation.petvacation.controller;
 
 import com.petvacation.petvacation.domain.Properties;
-import com.petvacation.petvacation.domain.User;
 import com.petvacation.petvacation.repository.PropertiesRepository;
 import com.petvacation.petvacation.service.IPropertiesService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.crossstore.ChangeSetPersister;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import javax.validation.Valid;
 import java.util.List;
 
 
 @RestController
 @RequestMapping("/petvacation")
-@RequiredArgsConstructor
+
 public class PropertiesController {
 
-    private IPropertiesService propertiesService;
 
+    private final IPropertiesService propertiesService;
+
+    @Autowired
+    public PropertiesController(IPropertiesService propertiesService){
+        this.propertiesService = propertiesService;
+    }
+    //private IPropertiesService propertiesService;
 
     @GetMapping("/properties")
     public List<Properties> findAllProperties() {
-        return propertiesService.findAllProperties(); }
+        return propertiesService.findAll(); }
+
+    @PostMapping("/properties/create")
+    public Properties createNewEvent (@RequestBody @Valid Properties properties){
+        return propertiesService.save(properties);
+    }
+
     //ok
     @GetMapping("/properties/{id}")
-    public Properties findPropertiesById(@PathVariable("id") Long id)  {
-        return propertiesService.findPropertyById(id);
+    public Properties findPropertiesById(@PathVariable("id") Long idProperties)  {
+        return propertiesService.findPropertyById(idProperties);
     }
 
-    @GetMapping("/create")
-    public String createNewEvent (Model model){
-
-        Properties properties = new Properties();
-
-        model.addAttribute("title", "Form: New Property");
-        model.addAttribute("property", properties);
-
-        return "/ruta/angular";
+    @PutMapping("properties/edit/{id}")
+    public Properties updateProperty (@PathVariable("id") Long idProperties, @RequestBody @Valid Properties properties){
+        return propertiesService.save(properties);
     }
 
-    @PostMapping("/save")
+    @DeleteMapping("/properties/{id}")
+    public ResponseEntity<Boolean> deleteProperty (@PathVariable("id") Long id){
+        propertiesService.delete(id);
+        return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
+    }
+
+
+
+    /*@PostMapping("/save")
     public String saveProperties(@Valid @ModelAttribute Properties properties, BindingResult result,
                             Model model, RedirectAttributes attribute){
 
@@ -58,9 +70,9 @@ public class PropertiesController {
         System.out.println("Successfully saved!");
         attribute.addFlashAttribute("success","Successfully saved");
         return "redirect:/properties";
-    }
+    }*/
 
-    @GetMapping("/properties/edit")
+   /* @GetMapping("/properties/edit")
     public String editProperties(@Valid @ModelAttribute Properties properties, BindingResult result,
                                  Model model, RedirectAttributes attribute){
 
@@ -71,7 +83,6 @@ public class PropertiesController {
 
             return "/ruta/angular";
         }
-
         propertiesService.save(properties);
         System.out.println("Successfully saved!");
         attribute.addFlashAttribute("success","Successfully saved");
@@ -82,9 +93,9 @@ public class PropertiesController {
     public Properties updatePropertiesById(@PathVariable("id") Long idProperties, @RequestBody @Valid Properties properties) {
         propertiesService.save(properties);
         return properties;
-    }
+    }*/
 
-    @GetMapping("/delete/{id}")
+    /*@GetMapping("/delete/{id}")
     public String deleteEvent (@PathVariable("id") Long idProperties, RedirectAttributes attribute){
         Properties properties = null;
 
@@ -107,7 +118,7 @@ public class PropertiesController {
         attribute.addFlashAttribute("warning","Successfully Removed!");
 
         return "redirect:/properties";
-    }
+    }*/
 
 }
 

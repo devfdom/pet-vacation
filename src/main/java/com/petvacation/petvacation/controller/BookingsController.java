@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+/*
 
 @RestController
 @RequestMapping("/api/bookings")
@@ -21,14 +22,17 @@ public class BookingsController {
     private final PropertiesRepository propertiesRepository;
     private final UserRepository userRepository;
 
-    @PostMapping("/user/properties")
+   */
+/* @PostMapping("/user/properties")
     public ResponseEntity<?> addUserBooking(@RequestBody UserBookingsForm form){
         userService.addUserProperties(form.getUserId(),form.getPropertiesId());
         return ResponseEntity.ok().build();
     }
+*//*
 
 
-    /*
+    */
+/*
     @PutMapping("api/user/{id}/book")
     public String userAddBooking(Authentication auth, @PathVariable("id") Long idProperties){
         Properties properties= propertiesRepository.findById(idProperties).orElseThrow(UserNotFoundException::new);
@@ -71,7 +75,8 @@ public class BookingsController {
 
         return "redirect:/views/users/index";
     }
-    */
+    *//*
+
 
 }
 @Data
@@ -79,4 +84,5 @@ class UserBookingsForm{
     private Long userId;
     private Long propertiesId;
 }
+*/
 

@@ -5,7 +5,6 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.petvacation.petvacation.domain.Properties;
 import com.petvacation.petvacation.domain.Role;
 import com.petvacation.petvacation.domain.User;
 import com.petvacation.petvacation.repository.PropertiesRepository;
@@ -13,18 +12,16 @@ import com.petvacation.petvacation.repository.UserRepository;
 import com.petvacation.petvacation.service.IUserService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.ui.Model;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.net.URI;
 
@@ -42,7 +39,6 @@ import static org.springframework.http.HttpStatus.FORBIDDEN;
 @RequiredArgsConstructor
 public class UserController {
     private final IUserService userService;
-    private final PropertiesRepository propertiesRepository;
     private final UserRepository userRepository;
 
     @GetMapping("/user")
@@ -92,7 +88,7 @@ public class UserController {
                 response.setContentType(MediaType.APPLICATION_JSON_VALUE);
                 new ObjectMapper().writeValue(response.getOutputStream(), tokens);
             }catch (Exception exception){
-                response.setHeader("errror", exception.getMessage());
+                response.setHeader("error", exception.getMessage());
                 response.setStatus(FORBIDDEN.value());
                 //response.sendError(FORBIDDEN.value());
                 Map<String, String> error = new HashMap<>();
@@ -107,25 +103,37 @@ public class UserController {
     }
 
     @GetMapping("/user/{id}")
-    public User findUserById(@PathVariable Long id) {
-        return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+    public User findUserById(@PathVariable("id") Long idUser) {
+        return userRepository.findById(idUser).orElseThrow(UserNotFoundException::new);
     }
 
-    @DeleteMapping("/user/delete/{id}")
-    public User delete (@PathVariable("id") Long id){
-        User user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+    //Funciona
+    /*@DeleteMapping("/user/delete/{id}")
+    public User delete (@PathVariable("id") Long idUser){
+        User user = userRepository.findById(idUser).orElseThrow(UserNotFoundException::new);
         userRepository.delete(user);
         System.out.println("Successfully deleted!");
         return null;
+    }*/
+    @PutMapping("/user/edit/{id}")
+    public User updateProperty (@PathVariable("id") Long idUser, @RequestBody @Valid User user){
+        return userService.saveUser(user);
     }
 
-    @GetMapping("/user/edit/{id}")
-    public String editUser (@PathVariable("id") Long idUsers, Model model,
+    @DeleteMapping("/user/{id}")
+    public ResponseEntity<Boolean> deleteProperty (@PathVariable("id") Long id){
+        userService.deleteUserById(id);
+        return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
+    }
+
+    //Funciona
+    /*@GetMapping("/user/edit/{id}")
+    public String editUser (@PathVariable("id") Long idUser, Model model,
                             RedirectAttributes attribute){
         User user = null;
 
-        if(idUsers > 0) {
-            user =  userRepository.findById(idUsers).orElseThrow(UserNotFoundException::new);
+        if(idUser > 0) {
+            user =  userRepository.findById(idUser).orElseThrow(UserNotFoundException::new);
 
             if(user == null){
                 System.out.println("Error: The indicated Id doesn't exist!");
@@ -141,13 +149,13 @@ public class UserController {
         model.addAttribute("user", user);
 
         return "/petvacation/user/frmEdit";
-    }
+    }*/
 
-    @PostMapping("/user/properties")
+   /* @PostMapping("/user/properties")
     public ResponseEntity<?> addUserProperties(@RequestBody OwnerPropertiesForm form){
         userService.addUserProperties(form.getUserId(),form.getPropertiesId());
         return ResponseEntity.ok().build();
-    }
+    }*/
 }
 
 @Data
@@ -158,8 +166,8 @@ class RoleToUserForm{
 
 @Data
 class OwnerPropertiesForm{
-    private Long userId;
-    private Long propertiesId;
+    private Long idUser;
+    private Long idproperties;
 }
 
 
