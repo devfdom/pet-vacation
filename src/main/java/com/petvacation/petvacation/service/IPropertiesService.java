@@ -13,4 +13,6 @@ public interface IPropertiesService {
     public Properties findPropertyById(Long id);
     public void delete (Long id);
     List<User> listUser();
+    List<Properties> getProperty(Properties properties);
+    List<Properties> getPropertiesOwner(User user);
 }

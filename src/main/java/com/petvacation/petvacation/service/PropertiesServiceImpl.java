@@ -51,4 +51,13 @@ public class PropertiesServiceImpl implements IPropertiesService {
     public List<User> listUser(){
         return null;
     }
+    @Override
+    public List<Properties> getProperty(Properties properties) {
+        return (List<Properties>) properties;
+    }
+
+    @Override
+    public List<Properties> getPropertiesOwner(User user) {
+        return null;
+    }
 }

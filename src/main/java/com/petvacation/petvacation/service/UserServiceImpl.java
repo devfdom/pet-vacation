@@ -3,6 +3,7 @@ package com.petvacation.petvacation.service;
 import com.petvacation.petvacation.domain.Properties;
 import com.petvacation.petvacation.domain.Role;
 import com.petvacation.petvacation.domain.User;
+import com.petvacation.petvacation.repository.PropertiesRepository;
 import com.petvacation.petvacation.repository.RoleRepository;
 import com.petvacation.petvacation.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,7 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final PropertiesRepository propertiesRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -95,6 +97,42 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
     @Override
     public void deleteUserById(Long id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public void addOwnerToProperties(User owner, Long idProperties) {
+
+    }
+
+    @Override
+    public void addOwnerToProperties(Long idUser, Long idProperties) {
+        log.info("Adding owner {} to property {} ", idUser, idProperties);
+        User user = userRepository.findUserById(idUser);
+        Properties properties = propertiesRepository.findPropertyById(idProperties);
+        user.getProperties().add(properties);
+    }
+
+    @Override
+    public void addOwnerProperties(User user, Long idProperties) {
+
+    }
+
+    @Override
+    public void addBooking(User guest, Long idProperties) {
+
+    }
+
+    @Override
+    public void addBooking(Long idUser, Long idProperties) {
+        log.info("Adding guest {} to property {} ", idUser, idProperties);
+        User user = userRepository.findUserById(idUser);
+        Properties properties = propertiesRepository.findPropertyById(idProperties);
+        user.getProperties().add(properties);
+    }
+
+    @Override
+    public User findUserById(Long id) {
+        return null;
     }
 
     /*@Override
