@@ -1,8 +1,7 @@
 package com.petvacation.petvacation.domain;
 
-import lombok.AllArgsConstructor;
+
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -10,7 +9,6 @@ import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 import static javax.persistence.GenerationType.AUTO;
 
@@ -130,5 +128,13 @@ public class User {
     }
 
     public User() {
+    }
+
+    public void add(User guest) {
+        this.booking = booking;
+    }
+
+    public void remove(User guest) {
+        this.booking = booking;
     }
 }

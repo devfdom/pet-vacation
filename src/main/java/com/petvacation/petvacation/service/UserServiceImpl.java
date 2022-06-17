@@ -120,6 +120,7 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
     @Override
     public void addBooking(User guest, Long idProperties) {
 
+
     }
 
     @Override

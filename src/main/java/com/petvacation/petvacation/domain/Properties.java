@@ -24,12 +24,12 @@ public class Properties {
     private int pricePerNight;
 
     @ManyToOne
-    @JoinColumn(name="user_owner")
+    @JoinColumn(name="user_id")
     private User owner;
 
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name = "user_id")
-    private User guest;
+    private User guest;*/
 
     @OneToMany(mappedBy = "properties")
     Set<Booking> booking;
@@ -43,14 +43,14 @@ public class Properties {
 
 
 
-    public User getUser() {
+    /*public User getUser() {
         return guest;
     }
 
     public void setUser(User guest) {
         this.guest = guest;
     }
-
+*/
     /*@ManyToOne
     @JoinColumn(name = "user_id")
     private User user;*/
@@ -190,7 +190,7 @@ public class Properties {
         this.booking = booking;
         this.city = city;
         //this.photos = photos;
-        this.guest = guest;
+        //this.guest = guest;
     }
 
     public Properties(Long id) {
@@ -212,9 +212,9 @@ public class Properties {
         this.city = city;
     }
 
-    public Properties(Long id, User owner, User guest) {
+    public Properties(Long id, User owner) {
         this.id = id;
         this.owner = owner;
-        this.guest = guest;
+        //this.guest = guest;
     }
 }

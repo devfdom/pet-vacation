@@ -1,9 +1,10 @@
 package com.petvacation.petvacation.domain;
 
 import javax.persistence.*;
+/*
 
 @Entity
-@Table(name = "photos")
+@Table(name = "photo")
 public class Photo {
     @Id
     @GeneratedValue
@@ -49,3 +50,5 @@ public class Photo {
     }
 
 }
+
+*/

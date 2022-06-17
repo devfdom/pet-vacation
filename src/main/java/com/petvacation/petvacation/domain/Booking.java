@@ -10,6 +10,7 @@ public class Booking {
     Long id;
     private Date checkin;
     private Date checkout;
+    private int totalPrice;
 
 
     @ManyToOne
@@ -20,6 +21,14 @@ public class Booking {
     @JoinColumn (name = "properties_id")
     Properties properties;
 
+    public void addBooking(User guest){
+        guest.add(guest);
+        guest.getProperties().add(properties);
+    }
+    public void removeBooking(User guest) {
+        guest.remove(guest);
+        guest.getProperties().remove(properties);
+    }
    /* LocalDateTime checkin;
     LocalDateTime checkout;*/
 

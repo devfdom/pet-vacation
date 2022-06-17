@@ -37,6 +37,7 @@ import static org.springframework.http.HttpStatus.FORBIDDEN;
 @RestController
 @RequestMapping("/petvacation")
 @RequiredArgsConstructor
+@CrossOrigin(origins="http://localhost:4200/")
 public class UserController {
     private final IUserService userService;
     private final UserRepository userRepository;

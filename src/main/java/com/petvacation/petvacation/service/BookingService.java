@@ -65,8 +65,18 @@ public class BookingService implements IBooking{
 
     @Override
     public void addBooking(User guest, Long idProperties) {
-
+            Booking booking = new Booking();
+            booking.addBooking(guest);
+            bookingRepository.save(booking);
     }
+
+    @Override
+    public void deleteBooking(User guest, Long idProperties) {
+        Booking booking = new Booking();
+        booking.removeBooking(guest);
+        bookingRepository.delete(booking);
+    }
+
 
     @Override
         public List<Booking> getBookingByUserId(User id) {
@@ -88,10 +98,10 @@ public class BookingService implements IBooking{
             return bookingRepository.findAll();
         }
 
-        @Override
-        public void deleteBooking(Long id) {
+        /*@Override
+        public void deleteBookingById(Long id) {
             bookingRepository.deleteById(id);
-        }
+        }*/
 
         @Override
         public Booking getBookingById(Long id) {

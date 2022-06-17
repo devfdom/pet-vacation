@@ -16,6 +16,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/petvacation")
 @RequiredArgsConstructor
+@CrossOrigin(origins="http://localhost:4200/")
 public class BookingController {
     private final BookingService bookingService;
     private final IUserService userService;

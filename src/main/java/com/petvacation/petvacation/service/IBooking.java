@@ -27,7 +27,7 @@ public interface IBooking {
     List<Booking> getCheckin(Booking checkin);
     List<Booking> getCheckout(Booking checkout);
     Booking saveBooking (Booking booking);
-    void deleteBooking(Long id);
+    void deleteBooking(User guest, Long idProperties);
     Booking getBookingById(Long id);
 
     Object getBooking();
