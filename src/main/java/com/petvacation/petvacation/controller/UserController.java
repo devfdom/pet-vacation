@@ -104,18 +104,18 @@ public class UserController {
     }
 
     @GetMapping("/user/{id}")
-    public User findUserById(@PathVariable("id") Long idUser) {
-        return userRepository.findById(idUser).orElseThrow(UserNotFoundException::new);
+    public User findUserById(@PathVariable("id") Long id) {
+        return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
     }
 
-    //Funciona
-    /*@DeleteMapping("/user/delete/{id}")
+
+    @DeleteMapping("/user/delete/{id}")
     public User delete (@PathVariable("id") Long idUser){
         User user = userRepository.findById(idUser).orElseThrow(UserNotFoundException::new);
         userRepository.delete(user);
         System.out.println("Successfully deleted!");
         return null;
-    }*/
+    }
     @PutMapping("/user/edit/{id}")
     public User updateProperty (@PathVariable("id") Long idUser, @RequestBody @Valid User user){
         return userService.saveUser(user);

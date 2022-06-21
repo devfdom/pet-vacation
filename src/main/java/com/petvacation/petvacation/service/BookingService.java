@@ -52,7 +52,6 @@ public class BookingService implements IBooking{
             return bookingRepository.findByGuest(guest);
         }*/
 
-
        /* @Override
         public User getOwner(User owner) {
             return bookingRepository.getOwner(owner);
@@ -77,7 +76,6 @@ public class BookingService implements IBooking{
         bookingRepository.delete(booking);
     }
 
-
     @Override
         public List<Booking> getBookingByUserId(User id) {
             return bookingRepository.findAll();
@@ -98,10 +96,10 @@ public class BookingService implements IBooking{
             return bookingRepository.findAll();
         }
 
-        /*@Override
-        public void deleteBookingById(Long id) {
-            bookingRepository.deleteById(id);
-        }*/
+        @Override
+        public void deleteBookingById(Long idBooking) {
+            bookingRepository.deleteById(idBooking);
+        }
 
         @Override
         public Booking getBookingById(Long id) {

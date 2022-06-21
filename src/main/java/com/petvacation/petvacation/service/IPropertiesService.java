@@ -15,4 +15,5 @@ public interface IPropertiesService {
     List<User> listUser();
     List<Properties> getProperty(Properties properties);
     List<Properties> getPropertiesOwner(User user);
+    List<Properties> findPropertyByCity(String city);
 }

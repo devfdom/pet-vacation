@@ -38,9 +38,9 @@ public class BookingController {
         return bookingService.getBookingById(idBooking);
     }
 
-    @DeleteMapping("/booking/{id}")
-    public ResponseEntity<Boolean> deleteBooking (@PathVariable("id") Long id){
-        bookingService.deleteBooking(id);
+    @DeleteMapping("/booking/delete/{id}")
+    public ResponseEntity<Boolean> deleteBookingById (@PathVariable("id") Long idBooking){
+        bookingService.deleteBookingById(idBooking);
         return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
     }
     @PostMapping("/booking/addtouser")

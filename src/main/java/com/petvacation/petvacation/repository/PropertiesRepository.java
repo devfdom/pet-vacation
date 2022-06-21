@@ -10,4 +10,6 @@ import java.util.List;
 public interface PropertiesRepository extends JpaRepository<Properties, Long> {
         public List<Properties> findByAvailableIsTrue();
         Properties findPropertyById(Long properties);
+
+        List<Properties> findPropertyByCity(String city);
 }

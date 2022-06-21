@@ -60,4 +60,11 @@ public class PropertiesServiceImpl implements IPropertiesService {
     public List<Properties> getPropertiesOwner(User user) {
         return null;
     }
+
+    @Override
+    public List<Properties> findPropertyByCity(String city) {
+        System.out.println(city);
+        return propertiesRepository.findPropertyByCity(city);
+    }
+
 }

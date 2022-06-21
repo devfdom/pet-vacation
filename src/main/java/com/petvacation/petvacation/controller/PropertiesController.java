@@ -6,6 +6,7 @@ import com.petvacation.petvacation.service.IPropertiesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -27,8 +28,20 @@ public class PropertiesController {
     //private IPropertiesService propertiesService;
 
     @GetMapping("/properties")
+    public ResponseEntity<List<Properties>> findAllProperties(Authentication authentication) {
+        if (authentication == null){
+            System.out.println("property not found or invalid token");
+        }else{
+            String username = authentication.getPrincipal().toString();
+            System.out.println(username);
+        }
+        System.out.println("test");
+        return ResponseEntity.ok().body(propertiesService.findAll());
+    }
+
+    /*@GetMapping("/properties")
     public List<Properties> findAllProperties() {
-        return propertiesService.findAll(); }
+        return propertiesService.findAll(); }*/
 
     @PostMapping("/properties/create")
     public Properties createNewEvent (@RequestBody @Valid Properties properties){
@@ -37,8 +50,8 @@ public class PropertiesController {
 
     //ok
     @GetMapping("/properties/{id}")
-    public Properties findPropertiesById(@PathVariable("id") Long idProperties)  {
-        return propertiesService.findPropertyById(idProperties);
+    public Properties findPropertiesById(@PathVariable("id") Long id)  {
+        return propertiesService.findPropertyById(id);
     }
 
     @PutMapping("properties/edit/{id}")
@@ -46,10 +59,16 @@ public class PropertiesController {
         return propertiesService.save(properties);
     }
 
-    @DeleteMapping("/properties/{id}")
+    @DeleteMapping("/properties/delete/{id}")
     public ResponseEntity<Boolean> deleteProperty (@PathVariable("id") Long id){
         propertiesService.delete(id);
         return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
+    }
+
+    @GetMapping("/food/filter/{city}")
+    public ResponseEntity<List<Properties>> getPropertiesByCity(@PathVariable String city) {
+        System.out.println(city);
+        return ResponseEntity.ok().body(propertiesService.findPropertyByCity(city));
     }
 
 
