@@ -46,7 +46,6 @@ public class Properties {
     /*public User getUser() {
         return guest;
     }
-
     public void setUser(User guest) {
         this.guest = guest;
     }
@@ -58,7 +57,6 @@ public class Properties {
    /* public User getUser() {
         return user;
     }
-
     public void setUser(User user) {
         this.user = user;
     }*/
@@ -170,7 +168,6 @@ public class Properties {
     /*public List<Photo> getPhotos() {
         return photos;
     }
-
     public void setPhotos(List<Photo> photos) {
         this.photos = photos;
     }
