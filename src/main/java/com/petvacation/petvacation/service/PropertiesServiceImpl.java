@@ -26,11 +26,11 @@ public class PropertiesServiceImpl implements IPropertiesService {
         return propertiesRepository.findAll();
     }
 
-    @Override
+    /*@Override
     public List<Properties> listAvailable(){
         return (List<Properties>) propertiesRepository.findByAvailableIsTrue();
     }
-
+*/
     @Override
     public Properties save (Properties properties){
         return propertiesRepository.save(properties);
