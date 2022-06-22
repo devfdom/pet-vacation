@@ -55,7 +55,7 @@ public class PropertiesController {
     }
 
     @PutMapping("properties/edit/{id}")
-    public Properties updateProperty (@PathVariable("id") Long idProperties, @RequestBody @Valid Properties properties){
+    public Properties updateProperty (@PathVariable("id") Long id, @RequestBody @Valid Properties properties){
         return propertiesService.save(properties);
     }
 

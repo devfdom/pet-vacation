@@ -48,7 +48,6 @@ public class BookingController {
         userService.addBooking(form.getGuest(),form.getIdProperties());
         return ResponseEntity.ok().build();
     }
-
 }
 
 @Data

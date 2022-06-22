@@ -13,13 +13,14 @@ public class Properties {
     @Id
     @GeneratedValue(strategy = AUTO)
     private Long id;
+    private String city;
     private int bedrooms;
     private int capacity;
     private boolean pool;
     private boolean garden;
     private String photo;
-    private String available;
-    private boolean approved;
+    //private String available;
+    //private boolean approved;
     private String description;
     private int pricePerNight;
 
@@ -34,9 +35,9 @@ public class Properties {
     @OneToMany(mappedBy = "properties")
     Set<Booking> booking;
 
-    @ManyToOne
+  /*  @ManyToOne
     @JoinColumn(name = "city_id")
-    private City city;
+    private City city;*/
 
    /* @OneToMany(cascade = CascadeType.ALL, mappedBy = "properties")
     private List<Photo> photos;*/
@@ -63,12 +64,21 @@ public class Properties {
         this.user = user;
     }*/
 
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long propertyId) {
         this.id = id;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public int getBedrooms() {
@@ -111,7 +121,7 @@ public class Properties {
         this.photo = photo;
     }
 
-    public String getAvailable() {
+    /*public String getAvailable() {
         return available;
     }
 
@@ -126,7 +136,7 @@ public class Properties {
     public void setApproved(boolean approved) {
         this.approved = approved;
     }
-
+*/
     public String getDescription() {
         return description;
     }
@@ -159,13 +169,13 @@ public class Properties {
         this.booking = booking;
     }
 
-    public City getCity() {
+  /*  public City getCity() {
         return city;
     }
 
     public void setCity(City city) {
         this.city = city;
-    }
+    }*/
 
     /*public List<Photo> getPhotos() {
         return photos;
@@ -175,20 +185,21 @@ public class Properties {
         this.photos = photos;
     }
 */
-    public Properties(Long id, int bedrooms, int capacity, boolean pool, boolean garden, String photo, String available, boolean approved, String description, int pricePerNight, User owner, Set<Booking> booking, City city,  User guest) {
+    public Properties(Long id, String city, int bedrooms, int capacity, boolean pool, boolean garden, String photo, String description, int pricePerNight, User owner, Set<Booking> booking, User guest) {
         this.id = id;
+        this.city = city;
         this.bedrooms = bedrooms;
         this.capacity = capacity;
         this.pool = pool;
         this.garden = garden;
         this.photo = photo;
-        this.available = available;
-        this.approved = approved;
+        /*this.available = available;
+        this.approved = approved;*/
         this.description = description;
         this.pricePerNight = pricePerNight;
         this.owner = owner;
         this.booking = booking;
-        this.city = city;
+
         //this.photos = photos;
         //this.guest = guest;
     }
@@ -200,13 +211,13 @@ public class Properties {
     public Properties() {
     }
 
-    public Properties(int bedrooms, int capacity, boolean pool, boolean garden, String photo, String available, String description, int pricePerNight, City city) {
+    public Properties(String city, int bedrooms, int capacity, boolean pool, boolean garden, String photo, String description, int pricePerNight) {
         this.bedrooms = bedrooms;
         this.capacity = capacity;
         this.pool = pool;
         this.garden = garden;
         this.photo = photo;
-        this.available = available;
+        //this.available = available;
         this.description = description;
         this.pricePerNight = pricePerNight;
         this.city = city;
