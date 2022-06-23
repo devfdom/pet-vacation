@@ -131,14 +131,13 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
         user.getProperties().add(properties);
     }
 
-    @Override
+   /* @Override
     public User findUserById(Long id) {
         return null;
-    }
+    }*/
 
     /*@Override
     public void addUserProperties(Long userId, Long propertiesId) {
-
     }*/
 
 

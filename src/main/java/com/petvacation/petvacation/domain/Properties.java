@@ -35,6 +35,9 @@ public class Properties {
     @OneToMany(mappedBy = "properties")
     Set<Booking> booking;
 
+    public Properties(long id, String city, int bedrooms, int capacity, boolean pool, boolean garden, String photo, String description, int pricePerNight, String owner, String booking, String guest) {
+    }
+
   /*  @ManyToOne
     @JoinColumn(name = "city_id")
     private City city;*/

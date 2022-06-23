@@ -25,5 +25,7 @@ public interface IUserService {
 
     void addBooking(Long idUser, Long idProperties);
 
+/*
     public User findUserById(Long id);
+*/
 }

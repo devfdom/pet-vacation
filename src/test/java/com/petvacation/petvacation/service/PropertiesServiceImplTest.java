@@ -8,8 +8,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -34,23 +37,26 @@ class PropertiesServiceImplTest {
 
     @Test
     void listAvailable() {
-        underTest.listAvailable();
-        verify(propertiesRepository).findByAvailableIsTrue();
+        underTest.findAll();
+        verify(propertiesRepository).findAll();
 
     }
 
     @Test
     void save() {
         Properties properties = new Properties(
-                1,
-                3,
+                1L,
+                "city",
+                4,
+                5,
                 true,
                 true,
                 "photo",
-                "true",
-                "my house",
+                "description",
                 250,
-                "Seville"
+                "owner",
+                "booking",
+                "guest"
         );
 
         underTest.save(properties);
@@ -66,69 +72,78 @@ class PropertiesServiceImplTest {
 
     @Test
     void findPropertyById() {
-        Properties propertiesId = new Properties(
+        Properties properties = new Properties(
                 1L,
-                1,
-                3,
+                "city",
+                4,
+                5,
                 true,
                 true,
                 "photo",
-                "available",
-                true,
-                "descr",
+                "description",
                 250,
                 "owner",
-                "",
-                "city",
-                "user"
+                "booking",
+                "guest"
 
         );
-        underTest.findPropertyById(propertiesId.getId());
+        given(propertiesRepository.findPropertyById(properties.getId())).willReturn(properties);
+        underTest.findPropertyById(properties.getId());
+        verify(propertiesRepository).findPropertyById(properties.getId());
 
-        verify(propertiesRepository).findById(1L);
+
     }
+
+    /*@Test
+    void itThrowsAnExceptionWhenPropertiesNotFound() {
+
+        given(propertiesRepository.findById(1L)).willReturn(null);
+
+        assertThatThrownBy(() -> underTest.findPropertyById(1L))
+                .isInstanceOf(PropertiesNotFoundException.class)
+                .hasMessageContaining("Properties not found in the database");
+
+    }*/
 
     @Test
     void delete() {
-        Properties propertiesDelete = new Properties(
+        Properties properties = new Properties(
                 1L,
-                1,
-                3,
+                "city",
+                4,
+                5,
                 true,
                 true,
                 "photo",
-                "true",
-                "my house",
+                "description",
                 250,
-                "Seville"
+                "owner",
+                "booking",
+                "guest"
         );
-        underTest.delete(propertiesDelete.getId());
+        underTest.delete(1L);
         verify(propertiesRepository).deleteById(1L);
     }
 
    /* @Test
     void getProperty() {
-        underTest.getProperty(list<properties>);
+
+        underTest.getProperty(properties);
         verify(propertiesRepository).findAll();
     }*/
 
     @Test
     void findPropertyByCity() {
         Properties properties = new Properties(
-                1L,
+
+                "city",
                 4,
                 5,
                 true,
                 true,
                 "photo",
-                "available",
-                true,
                 "description",
-                150,
-                "owner",
-                null,
-                "city",
-                "user"
+                150
 
         );
         underTest.findPropertyByCity("city");

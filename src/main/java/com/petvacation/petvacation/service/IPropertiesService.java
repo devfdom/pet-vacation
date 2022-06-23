@@ -12,8 +12,10 @@ public interface IPropertiesService {
     public Properties save(Properties properties);
     public Properties findPropertyById(Long id);
     public void delete (Long id);
-    List<User> listUser();
+   /* List<User> listUser();*/
     List<Properties> getProperty(Properties properties);
+/*
     List<Properties> getPropertiesOwner(User user);
+*/
     List<Properties> findPropertyByCity(String city);
 }
