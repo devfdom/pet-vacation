@@ -82,7 +82,6 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
         log.info("Fetching all users");
         return userRepository.findAll();
     }*/
-
     /*@Override
     public User findByUsername(String username) {
         log.info("Finding users by username");

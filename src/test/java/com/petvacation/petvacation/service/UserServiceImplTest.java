@@ -1,6 +1,5 @@
 package com.petvacation.petvacation.service;
 
-import com.petvacation.petvacation.domain.Booking;
 import com.petvacation.petvacation.domain.Properties;
 import com.petvacation.petvacation.domain.Role;
 import com.petvacation.petvacation.domain.User;
@@ -18,6 +17,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
@@ -167,13 +167,13 @@ class UserServiceImplTest {
 
     }
 
-    @Test
+    /*@Test
     void addOwnerToProperties() {
-    }
+    }*/
 
-    @Test
+  /*  @Test
     @Disabled
-    void testAddOwnerToProperties() {
+    void addOwnerToProperties() {
         User user = new User(
                 1L,
                 "Fran",
@@ -183,13 +183,23 @@ class UserServiceImplTest {
                 new ArrayList<>()
         );
         Properties properties = new Properties(1L);
+
         user.getProperties().add(properties);
-        assertThat(user.getProperties()).toString().contains("owner");
+        given(propertiesRepository.findById(1L)).willReturn(Optional.of(properties));
 
+        underTest.addOwnerToProperties(1L, 1L);
+        verify(userRepository).findUserById(1L);
 
-    }
+    }*/
+/*
+    @Test
+    void itThrowsAnExceptionWhenPropertiesRuntimeExceptionIsNew(){
+        given(userRepository.findUserById(1L)).willReturn(null);
 
-  /*  @Test
+        assertThatThrownBy(() -> underTest.addOwnerToProperties(1L, 1L)).isInstanceOf((RuntimeException.class)).hasMessageContaining("new");
+    }*/
+
+    /*  @Test
     void addOwnerProperties() {
     }
 
@@ -197,7 +207,7 @@ class UserServiceImplTest {
     void addBooking() {
     }
 */
-    @Test
+   /* @Test
     @Disabled
     void testAddBooking() {
 
@@ -210,7 +220,7 @@ class UserServiceImplTest {
 
 
     }
-
+*/
 
 
 

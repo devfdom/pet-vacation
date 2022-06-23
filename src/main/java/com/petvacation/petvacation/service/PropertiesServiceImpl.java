@@ -5,8 +5,6 @@ import com.petvacation.petvacation.domain.User;
 import com.petvacation.petvacation.repository.PropertiesRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
@@ -52,6 +50,11 @@ public class PropertiesServiceImpl implements IPropertiesService {
         propertiesRepository.deleteById(id);
     }
 
+    @Override
+    public List<User> listUser() {
+        return null;
+    }
+
     /*@Override
     public List<User> listUser(){
         return null;
@@ -65,7 +68,7 @@ public class PropertiesServiceImpl implements IPropertiesService {
     public List<Properties> getPropertiesOwner(User user) {
         return null;
     }
-*/
+    */
     @Override
     public List<Properties> findPropertyByCity(String city) {
         System.out.println(city);

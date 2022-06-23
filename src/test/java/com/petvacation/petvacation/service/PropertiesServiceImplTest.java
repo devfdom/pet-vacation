@@ -10,6 +10,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.BDDMockito.given;
@@ -71,6 +73,26 @@ class PropertiesServiceImplTest {
     }
 
     @Test
+    void update(){
+        Properties properties = new Properties(
+                1L,
+                "city",
+                4,
+                5,
+                true,
+                true,
+                "photo",
+                "description",
+                250,
+                "owner",
+                "booking",
+                "guest"
+        );
+        underTest.update(properties);
+        verify(propertiesRepository).save(properties);
+    }
+
+    @Test
     void findPropertyById() {
         Properties properties = new Properties(
                 1L,
@@ -87,7 +109,7 @@ class PropertiesServiceImplTest {
                 "guest"
 
         );
-        given(propertiesRepository.findById(properties.getId())).willReturn(properties);
+        given(propertiesRepository.findById(properties.getId())).willReturn(Optional.of(properties));
         underTest.findPropertyById(properties.getId());
         verify(propertiesRepository).findById(properties.getId());
 
@@ -126,13 +148,19 @@ class PropertiesServiceImplTest {
     }
 
    /* @Test
+    void listUser() {
+
+        underTest.get(properties);
+        verify(propertiesRepository).findAll();*/
+
+   /* @Test
     void getProperty() {
 
         underTest.getProperty(properties);
         verify(propertiesRepository).findAll();
     }*/
 
-    @Test
+   @Test
     void findPropertyByCity() {
         Properties properties = new Properties(
 
@@ -146,9 +174,10 @@ class PropertiesServiceImplTest {
                 150
 
         );
-        underTest.findPropertyByCity("city");
-        verify(propertiesRepository).findPropertyByCity("city");
+       underTest.findPropertyByCity("city");
+       verify(propertiesRepository).findPropertyByCity("city");
+   }
+
+
     }
 
-
-}
