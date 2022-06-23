@@ -35,6 +35,9 @@ public class Properties {
     @OneToMany(mappedBy = "properties")
     private Set<Booking> booking;
 
+    public Properties(long id, String city, int bedrooms, int capacity, boolean pool, boolean garden, String photo, String description, int pricePerNight, String owner, String booking, String guest) {
+    }
+
   /*  @ManyToOne
     @JoinColumn(name = "city_id")
     private City city;*/
@@ -47,7 +50,6 @@ public class Properties {
     /*public User getUser() {
         return guest;
     }
-
     public void setUser(User guest) {
         this.guest = guest;
     }
@@ -59,7 +61,6 @@ public class Properties {
    /* public User getUser() {
         return user;
     }
-
     public void setUser(User user) {
         this.user = user;
     }*/
@@ -180,7 +181,6 @@ public class Properties {
     /*public List<Photo> getPhotos() {
         return photos;
     }
-
     public void setPhotos(List<Photo> photos) {
         this.photos = photos;
     }
