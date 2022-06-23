@@ -87,9 +87,9 @@ class PropertiesServiceImplTest {
                 "guest"
 
         );
-        given(propertiesRepository.findPropertyById(properties.getId())).willReturn(properties);
+        given(propertiesRepository.findById(properties.getId())).willReturn(properties);
         underTest.findPropertyById(properties.getId());
-        verify(propertiesRepository).findPropertyById(properties.getId());
+        verify(propertiesRepository).findById(properties.getId());
 
 
     }
