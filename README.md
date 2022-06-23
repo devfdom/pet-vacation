@@ -8,7 +8,7 @@ You can take your pet with you on holiday. It will offer opportunities for pet-f
 
 ## **Link to proyect**
 
-###Front-end:
+### Front-end:
 https://github.com/devFDom/front-vacation
-###Back-end:
+### Back-end:
 https://github.com/devFDom/pet-vacation
