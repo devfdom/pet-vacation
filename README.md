@@ -29,3 +29,35 @@ All services are tested.
 - Spring Boot
 - JWT
 - MySQL
+
+
+#TEAM
+
+We are a group of enthusiastic coders excited about web-designing. 
+
+- Glaucia: https://github.com/Glauciagmm
+- Lupe: https://github.com/Lupe13
+- Fran: https://github.com/devFDom
+- Patri: https://github.com/PMuin
+- Elisabeth: https://github.com/ElisabethIld
+
+
+#OPTIMIZATIONS
+
+- Code needs some refactoring and clean up.
+
+- Use Swagger for API documentation.
+
+- A new entity for orders will make it easier to organize. One of the branches has it halfway done.
+
+- Add a search for food name, it should be easy.
+
+
+#Lessons Learned:
+
+When deploying to heroku we had to move from MySQL to Postgres.
+
+When building JWT token, we forgot a few fields that we needed on our frontend so we had to do that later.
+
+A good planning helps speed things up.
+
