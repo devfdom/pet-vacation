@@ -5,6 +5,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.petvacation.petvacation.domain.Properties;
 import com.petvacation.petvacation.domain.Role;
 import com.petvacation.petvacation.domain.User;
 import com.petvacation.petvacation.repository.PropertiesRepository;
@@ -116,8 +117,9 @@ public class UserController {
         System.out.println("Successfully deleted!");
         return null;
     }
-    @PutMapping("/user/edit/{id}")
-    public User updateProperty (@PathVariable("id") Long idUser, @RequestBody @Valid User user){
+    @PutMapping("/user/edit")
+    public User updateProperty (@RequestBody @Valid User user){
+        userRepository.findById(user.getId()).orElseThrow(RuntimeException::new);
         return userService.saveUser(user);
     }
 
