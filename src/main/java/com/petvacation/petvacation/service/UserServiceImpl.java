@@ -108,7 +108,7 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
     public void addOwnerToProperties(Long idUser, Long idProperties) {
         log.info("Adding owner {} to property {} ", idUser, idProperties);
         User user = userRepository.findUserById(idUser);
-        Properties properties = propertiesRepository.findPropertyById(idProperties);
+        Properties properties = propertiesRepository.findById(idProperties).orElseThrow(RuntimeException::new);
         user.getProperties().add(properties);
     }
 
@@ -127,7 +127,7 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
     public void addBooking(Long idUser, Long idProperties) {
         log.info("Adding guest {} to property {} ", idUser, idProperties);
         User user = userRepository.findUserById(idUser);
-        Properties properties = propertiesRepository.findPropertyById(idProperties);
+        Properties properties = propertiesRepository.findById(idProperties).orElseThrow(RuntimeException::new);
         user.getProperties().add(properties);
     }
 

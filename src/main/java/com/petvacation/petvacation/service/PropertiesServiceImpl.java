@@ -38,6 +38,11 @@ public class PropertiesServiceImpl implements IPropertiesService {
     }
 
     @Override
+    public Properties update(Properties properties) {
+        return propertiesRepository.save(properties);
+    }
+
+    @Override
     public Properties findPropertyById(Long id){
         return propertiesRepository.findById(id).orElse(null);
     }

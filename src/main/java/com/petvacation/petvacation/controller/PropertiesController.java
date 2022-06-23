@@ -20,10 +20,12 @@ public class PropertiesController {
 
 
     private final IPropertiesService propertiesService;
+    public final PropertiesRepository propertiesRepository;
 
     @Autowired
-    public PropertiesController(IPropertiesService propertiesService){
+    public PropertiesController(IPropertiesService propertiesService, PropertiesRepository propertiesRepository){
         this.propertiesService = propertiesService;
+        this.propertiesRepository = propertiesRepository;
     }
     //private IPropertiesService propertiesService;
 
@@ -54,9 +56,10 @@ public class PropertiesController {
         return propertiesService.findPropertyById(id);
     }
 
-    @PutMapping("properties/edit/{id}")
-    public Properties updateProperty (@PathVariable("id") Long id, @RequestBody @Valid Properties properties){
-        return propertiesService.save(properties);
+    @PutMapping("properties/edit")
+    public Properties updateProperty (@RequestBody @Valid Properties properties){
+        propertiesRepository.findById(properties.getId()).orElseThrow(RuntimeException::new);
+        return propertiesService.update(properties);
     }
 
     @DeleteMapping("/properties/delete/{id}")

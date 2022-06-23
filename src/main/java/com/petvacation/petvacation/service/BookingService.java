@@ -31,7 +31,7 @@ public class BookingService implements IBooking{
         @Override
         public void addBooking (Long idUser, Long idProperties) {
             User user = userRepository.findUserById(idUser);
-            Properties properties = propertiesRepository.findPropertyById(idProperties);
+            Properties properties = propertiesRepository.findById(idProperties).orElseThrow(RuntimeException::new);
             user.getProperties().add(properties);
         }
 

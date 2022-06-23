@@ -11,7 +11,7 @@ import static javax.persistence.GenerationType.AUTO;
 @Data
 public class Properties {
     @Id
-    @GeneratedValue(strategy = AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String city;
     private int bedrooms;
@@ -33,7 +33,7 @@ public class Properties {
     private User guest;*/
 
     @OneToMany(mappedBy = "properties")
-    Set<Booking> booking;
+    private Set<Booking> booking;
 
   /*  @ManyToOne
     @JoinColumn(name = "city_id")
@@ -69,7 +69,7 @@ public class Properties {
         return id;
     }
 
-    public void setId(Long propertyId) {
+    public void setId(Long id) {
         this.id = id;
     }
 
