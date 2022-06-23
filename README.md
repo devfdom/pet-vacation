@@ -35,8 +35,8 @@ All services are tested.
 
 We are a group of enthusiastic coders excited about web-designing. 
 
-- Glaucia: https://github.com/Glauciagmm
-- Lupe: https://github.com/Lupe13
+- Glaucia: https://github.com/Glauciagmm Scrum Master
+- Lupe: https://github.com/Lupe13 Product Owner
 - Fran: https://github.com/devFDom
 - Patri: https://github.com/PMuin
 - Elisabeth: https://github.com/ElisabethIld
