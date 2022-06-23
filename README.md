@@ -12,3 +12,20 @@ You can take your pet with you on holiday. It will offer opportunities for pet-f
 https://github.com/devFDom/front-vacation
 ### Back-end:
 https://github.com/devFDom/pet-vacation
+
+
+# HOW IT´S MADE:
+
+Our backend allows users to register and order products.
+
+Frontend uses angular and with JWT we do the authentication and authorization.
+
+All services are tested.
+
+
+# TOOLS:
+
+- JAVA
+- Spring Boot
+- JWT
+- MySQL
