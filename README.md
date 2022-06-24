@@ -1,7 +1,5 @@
 # PET-VACATION
-# <img src="src/assets/img/logo.png" width="348">
-
-
+# <a href="https://ibb.co/s31Dmyz"><img src="https://i.ibb.co/s31Dmyz/logo.png" alt="logo" border="0"></a>
 Is a REST API based on the Spring Boot Java framework. We offer pet-friendly vacation rental listings fir families with pets who don´t have anyone to take care of them during their vacations.
 You can take your pet with you on holiday. It will offer opportunities for pet-friendly rent them properties.
 
