@@ -45,14 +45,16 @@ public class BookingController {
     }
     @PostMapping("/booking/addtouser")
     public ResponseEntity<?>addBookingToUser(@RequestBody BookingToUserForm form){
-        userService.addBooking(form.getGuest(),form.getIdProperties());
+        User user = new User();
+        user =userService.findById(form.getIdUser());
+        userService.addBooking(user,form.getIdProperties());
         return ResponseEntity.ok().build();
     }
 }
 
 @Data
 class BookingToUserForm{
-    private User guest;
+    private Long idUser;
     private Long idProperties;
 }
 
